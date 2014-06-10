@@ -75,6 +75,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    //Scroll view
+    _scrollview.delegate = self;
+    self.scrollview.contentSize = self.imageview.image.size ;
+    self.imageview.frame = CGRectMake(0, 0, self.imageview.image.size.width, self.imageview.image.size.height);
+    
+    [_scrollview setScrollEnabled:YES];
+    [_scrollview setShowsHorizontalScrollIndicator:YES];
+    [_scrollview setShowsVerticalScrollIndicator:YES];
     
     isSetting = YES;
     
@@ -112,6 +120,9 @@
     /*-----------Socket Client----------*/
     
     [NSThread detachNewThreadSelector:@selector(connectLeap) toTarget:self withObject:nil];
+    
+    
+  
 }
 
 - (void)viewDidDisappear:(BOOL)animated
@@ -171,6 +182,8 @@
         
         NSLog(@"%s", buf);
        
+        
+        
     }
 }
 

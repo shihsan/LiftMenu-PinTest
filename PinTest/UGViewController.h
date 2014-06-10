@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 
 
-@interface UGViewController : UIViewController
+@interface UGViewController : UIViewController <UIScrollViewDelegate>
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollview;
+@property (strong, nonatomic) IBOutlet UIImageView *imageview;
 
 @end
