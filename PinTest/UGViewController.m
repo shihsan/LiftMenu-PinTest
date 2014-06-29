@@ -30,6 +30,7 @@
     float oy; // uncorrected finger's y
     float v; // finger[0]'s velocity
     NSInteger tap; // if tap triggered - 1 for YES, 0 for NO
+    float pin; //for pinch
     
     
     /* variable used in App */
@@ -75,14 +76,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    //Scroll view
-    _scrollview.delegate = self;
-    self.scrollview.contentSize = self.imageview.image.size ;
-    self.imageview.frame = CGRectMake(0, 0, self.imageview.image.size.width, self.imageview.image.size.height);
-    
-    [_scrollview setScrollEnabled:YES];
-    [_scrollview setShowsHorizontalScrollIndicator:YES];
-    [_scrollview setShowsVerticalScrollIndicator:YES];
     
     isSetting = YES;
     
@@ -121,6 +114,15 @@
     
     [NSThread detachNewThreadSelector:@selector(connectLeap) toTarget:self withObject:nil];
     
+    //Scroll view
+    _scrollview.delegate = self;
+    self.scrollview.contentSize = self.imageview.image.size ;
+    self.imageview.frame = CGRectMake(0, 0, self.imageview.image.size.width, self.imageview.image.size.height);
+    
+    [_scrollview setScrollEnabled:YES];
+    [_scrollview setShowsHorizontalScrollIndicator:YES];
+    [_scrollview setShowsVerticalScrollIndicator:YES];
+    
     
   
 }
@@ -151,7 +153,7 @@
         NSString *string = [NSString stringWithUTF8String:buf];
         NSScanner *scanner = [NSScanner scannerWithString:string];
         
-        // fz, fx, fy, pz, px, py, tap
+        // fz, fx, fy, pz, px, py, tap, pinch
         [scanner scanFloat:&fz];
         [scanner scanString:@", " intoString:nil];
         [scanner scanFloat:&fx];
@@ -175,16 +177,35 @@
         [scanner scanFloat:&ox];
         [scanner scanString:@", " intoString:nil];
         [scanner scanFloat:&oy];
+        [scanner scanString:@", " intoString:nil];
+        [scanner scanFloat:&pin];                      //for pinch
         
         x = fx;
         y = fy;
         z = pz;
         
         NSLog(@"%s", buf);
+        
+        if(pin == 1){
+            [self performSelectorOnMainThread:@selector(moveImg) withObject:nil waitUntilDone:YES];
+        }
        
         
         
     }
 }
 
+-(void) moveImg
+{
+    NSLog(@"MOVE!!!!!!!");
+    [UIView animateWithDuration:2.0f
+                          delay:0
+                        options:UIViewAnimationOptionCurveLinear
+                     animations:^{
+                         [_scrollview setContentOffset:CGPointMake(20, 20)];
+                     }
+                     completion:^(BOOL finished) {
+    }];
+    
+}
 @end
