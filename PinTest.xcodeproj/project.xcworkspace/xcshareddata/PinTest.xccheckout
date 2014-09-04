@@ -5,11 +5,13 @@
 	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
-	<string>1F1E778B-FF7C-4F8D-A21E-DD6A05ECA691</string>
+	<string>44B86294-00BA-4814-A1A4-9654C8B8C480</string>
 	<key>IDESourceControlProjectName</key>
 	<string>PinTest</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>99B60CE9-91C0-45EB-B09C-81FD129DA23B</key>
+		<string>ssh://github.com/shihsan/LiftMenu-PinTest.git</string>
 		<key>D69524C0-AF49-4945-BFBB-8394F3A96CA9</key>
 		<string>https://github.com/LittleDoorBoard/PainterLiftMenu.git</string>
 	</dict>
@@ -17,11 +19,13 @@
 	<string>PinTest/PinTest.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>99B60CE9-91C0-45EB-B09C-81FD129DA23B</key>
+		<string>../..</string>
 		<key>D69524C0-AF49-4945-BFBB-8394F3A96CA9</key>
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/LittleDoorBoard/PainterLiftMenu.git</string>
+	<string>ssh://github.com/shihsan/LiftMenu-PinTest.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
@@ -35,6 +39,14 @@
 			<string>D69524C0-AF49-4945-BFBB-8394F3A96CA9</string>
 			<key>IDESourceControlWCCName</key>
 			<string>LiftMenu</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>99B60CE9-91C0-45EB-B09C-81FD129DA23B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>PinTest</string>
 		</dict>
 	</array>
 </dict>

@@ -54,6 +54,10 @@
     NSInteger lbtnNum;
     NSInteger obtnNum;
     
+    float pre_px;   //previous palm's x
+    float pre_py;   //previous palm's y
+    float pre_pz;   //previous palm's z
+    
     /* setting */
     BOOL isSetting;
     
@@ -116,12 +120,19 @@
     
     //Scroll view
     _scrollview.delegate = self;
+    _scrollview.minimumZoomScale = 1.0;
+    _scrollview.maximumZoomScale = 2.0;
     self.scrollview.contentSize = self.imageview.image.size ;
     self.imageview.frame = CGRectMake(0, 0, self.imageview.image.size.width, self.imageview.image.size.height);
     
     [_scrollview setScrollEnabled:YES];
     [_scrollview setShowsHorizontalScrollIndicator:YES];
     [_scrollview setShowsVerticalScrollIndicator:YES];
+    
+    
+    pre_px = 0.0f;
+    pre_py = 0.0f;
+    pre_pz = 0.0f;
     
     
   
@@ -184,28 +195,54 @@
         y = fy;
         z = pz;
         
+        
         NSLog(@"%s", buf);
         
-        if(pin == 1){
+        if(pin > 0.8 && pin <= 1){
             [self performSelectorOnMainThread:@selector(moveImg) withObject:nil waitUntilDone:YES];
         }
-       
         
+        if(pre_px != px)
+            pre_px = px;
+        if(pre_py != py)
+            pre_py = py;
+        if(pre_pz != pz)
+            pre_pz = pz;
         
     }
 }
 
+int i=0,j=0;
+
 -(void) moveImg
 {
-    NSLog(@"MOVE!!!!!!!");
-    [UIView animateWithDuration:2.0f
-                          delay:0
-                        options:UIViewAnimationOptionCurveLinear
-                     animations:^{
-                         [_scrollview setContentOffset:CGPointMake(20, 20)];
-                     }
-                     completion:^(BOOL finished) {
-    }];
     
+    NSLog(@"{MOVE!!!!!!!%f,%f,%f,%f,%f}",px-pre_px,py-pre_py,pz-pre_pz,_imageview.frame.origin.x, _imageview.frame.origin.y);
+    [UIView animateWithDuration:0.5f
+                     animations:^{
+                         //Move the image view according to px , py
+                         _imageview.frame =
+                         CGRectMake(_imageview.frame.origin.x+px-pre_px,
+                                    _imageview.frame.origin.y+py-pre_py,
+                                    _imageview.frame.size.width,
+                                    _imageview.frame.size.height);
+                     }];
+    //for ZOOMING
+    if(pz-pre_pz > 1)
+        [UIView animateWithDuration:0.5f
+                         animations:^{
+                             _scrollview.zoomScale += 0.01f;
+                         }];
+    else if(pz-pre_pz < -1)
+        [UIView animateWithDuration:0.5f
+                         animations:^{
+                             _scrollview.zoomScale -= 0.01f;
+                         }];
+    
+    
+}
+
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)_scrollView {
+    return _imageview;
 }
 @end
